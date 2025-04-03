@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to fetch posts from the JSON file
     async function fetchPosts() {
         try {
-            const response = await fetch('../src/data/posts.json'); // Adjust the path to where your JSON file is located
+            const response = await fetch('src/data/posts.json'); // Adjust the path to where your JSON file is located
             const posts = await response.json(); // Parse the JSON data
 
             // Now display the posts

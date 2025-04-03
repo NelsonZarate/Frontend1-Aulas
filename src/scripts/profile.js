@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to fetch profiles and posts from the JSON files
     async function fetchProfilesAndPosts() {
         try {
-            const responseProfile = await fetch('../src/data/profile.json');
+            const responseProfile = await fetch('src/data/profile.json');
             const profiles = await responseProfile.json();
 
-            const responsePosts = await fetch('../src/data/posts.json');
+            const responsePosts = await fetch('src/data/posts.json');
             const posts = await responsePosts.json();
 
             // Loop through the profiles and posts and display only posts that belong to the current profile
