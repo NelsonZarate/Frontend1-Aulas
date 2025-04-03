@@ -6,7 +6,7 @@
         "descricao": "Descrição 1",
         "author": "Nelson",
         "body": "Body of post 1",
-        "image_url": "/posts/1.png"
+        "image_url": "posts/1.png"
     },
     {
         "id": 2,
