@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuContainer = document.querySelector('.menu-placeholder');
 
     // Fetch the menu HTML
-    fetch('src/menu.html')
+    fetch('menu.html')
         .then(response => response.text())
         .then(data => {
             menuContainer.innerHTML = data; // Inject the menu HTML into the container
