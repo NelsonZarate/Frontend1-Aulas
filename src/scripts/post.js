@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         posts.forEach(post => {
             const postContainer = document.createElement('div');
             postContainer.classList.add('post');
-
+            console.log(post);
             // Create and append post title
             const postTitle = document.createElement('h4');
             postTitle.textContent = post.nome;
