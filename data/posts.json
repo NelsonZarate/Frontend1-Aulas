@@ -10,10 +10,10 @@
     },
     {
         "id": 2,
-        "nome": "Nelson",
+        "nome": "My cat",
         "createdAt": "03-04-2025",
         "descricao": "Descrição 2",
-        "author": "Author 2",
+        "author": "",
         "body": "Body of post 2",
         "image_url": "posts/1.png"
     }

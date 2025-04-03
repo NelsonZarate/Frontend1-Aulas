@@ -1,90 +1,88 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const profileContainer = document.querySelector('.profile-data');
+    const postsContainer = document.querySelector('.posts');
+
     // Function to fetch profiles and posts from the JSON files
-    async function fetchProfilesAndPosts() {
+    async function fetchProfilesAndPosts(username) {
         try {
+            // Fetch profiles and posts
             const responseProfile = await fetch('data/profile.json');
             const profiles = await responseProfile.json();
 
             const responsePosts = await fetch('data/posts.json');
             const posts = await responsePosts.json();
 
-            // Loop through the profiles and posts and display only posts that belong to the current profile
-            profiles.forEach(profile => {
+            // Find the profile matching the username
+            const profile = profiles.find(p => p.name.toLowerCase() === username.toLowerCase());
+            if (profile) {
                 // Display the profile
                 displayProfiles(profile);
-
-                // Filter posts based on the current profile's author
+                postsContainer.innerHTML = '';
+                // Filter and display posts related to the logged-in user
                 const filteredPosts = posts.filter(post => post.author === profile.name);
-                // Display the filtered posts
                 filteredPosts.forEach(post => {
                     displayPosts(post);
                 });
-            });
+            } else {
+                console.error("Profile not found for:", username);
+                alert("Profile not found, please check the name and try again.");
+            }
 
         } catch (error) {
             console.error("Error fetching profiles or posts:", error);
         }
     }
 
-    // Function to display the profile
+    // Display the profile
     function displayProfiles(profile) {
-        const profileContainer = document.querySelector('.profile-container');
+        // Clear any existing profile data
+        profileContainer.innerHTML = '';
 
         const profileCard = document.createElement('div');
         profileCard.classList.add('profile-card');
 
-        // Create and append profile name
         const profileName = document.createElement('h2');
         profileName.textContent = profile.name;
         profileCard.appendChild(profileName);
 
-        // Create and append profile gender
         const profileGender = document.createElement('p');
         profileGender.textContent = `Gender: ${profile.gender}`;
         profileCard.appendChild(profileGender);
 
-        // Create and append profile creation date
         const profileCreatedAt = document.createElement('p');
         profileCreatedAt.textContent = `Joined on: ${profile.createdAt}`;
         profileCard.appendChild(profileCreatedAt);
 
-        // Create and append profile description
         const profileDescription = document.createElement('p');
         profileDescription.textContent = `Description: ${profile.descricao}`;
         profileCard.appendChild(profileDescription);
 
-        // Create and append profile body
         const profileBody = document.createElement('p');
         profileBody.textContent = `Details: ${profile.body}`;
         profileCard.appendChild(profileBody);
 
-        // Append the profile card to the profile container
         profileContainer.appendChild(profileCard);
     }
 
-    // Function to display the posts
+    // Display posts
     function displayPosts(post) {
-        const postsContainer = document.querySelector('.posts');
-
         const postContainer = document.createElement('div');
         postContainer.classList.add('post');
 
-        // Create and append post title
         const postTitle = document.createElement('h4');
         postTitle.textContent = post.nome;
         postContainer.appendChild(postTitle);
 
-        // Create and append post description
         const postDescription = document.createElement('p');
         postDescription.textContent = post.descricao;
         postContainer.appendChild(postDescription);
 
-        // Create and append post body
         const postBody = document.createElement('p');
         postBody.textContent = post.body;
         postContainer.appendChild(postBody);
 
-        // Create and append post image if it exists
         if (post.image_url) {
             const postImage = document.createElement('img');
             postImage.src = post.image_url;
@@ -92,10 +90,20 @@ document.addEventListener("DOMContentLoaded", function() {
             postContainer.appendChild(postImage);
         }
 
-        // Append the post container to the posts container
         postsContainer.appendChild(postContainer);
     }
 
-    // Call the fetch function to load both profiles and posts on page load
-    fetchProfilesAndPosts();
+    // Event listener for form submission
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent page reload
+
+        const username = usernameInput.value.trim();
+
+        if (username) {
+            fetchProfilesAndPosts(username);  // Fetch data for the logged-in user
+        } else {
+            alert("Please enter a valid name.");
+        }
+    });
+
 });

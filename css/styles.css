@@ -1,17 +1,26 @@
-
+/* Body Styles */
 body {
     margin: 0;
     font-family: "Lobster", sans-serif;
     font-weight: 400;
     font-style: normal;
-
 }
 
+/* Menu button - hidden by default */
+.menu-btn {
+    display: none;
+    font-size: 30px;
+    background-color: transparent;
+    color: orange;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    cursor: pointer;
+}
 
+/* Navbar Styles */
 .navbar {
     display: flex;
-    justify-content: space-around;
-    gap: 50vw;
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #FF9F1C;
@@ -34,6 +43,7 @@ body {
 .navbar-links {
     display: flex;
     gap: 1rem;
+    list-style-type: none;
 }
 
 .navbar-links a {
@@ -47,12 +57,100 @@ body {
     text-decoration: underline;
 }
 
-main {
-    padding: 2rem;
-    text-align: center;
-
+/* Posts Container */
+.posts-container {
+    width: 100%;
+    max-width: 40vw;
+    max-height: 100vh;
+    margin: 0 auto;
+    justify-self: center;
 }
 
+.posts {
+    padding-bottom: 150px;
+}
+
+.post {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h2 {
+    font-size: 24px;
+    color: #FF9F1C;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #555;
+}
+
+.post p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.post img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #011627;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Design for Mobile */
+@media screen and (max-width: 430px) {
+    .navbar {
+        padding: 5px;
+    }
+
+    /* Hide menu links by default */
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: #333;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Show menu button */
+    .menu-btn {
+        display: block;
+    }
+
+    /* Display menu links when 'active' class is added */
+    .navbar-links.active {
+        display: flex;
+    }
+
+    .navbar-links a {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    .navbar {
+        align-items: center;
+    }
+}
+
+/* Profile Styles */
 .profile-container {
     max-width: 800px;
     margin: 0 auto;
@@ -88,51 +186,19 @@ main {
     color: #666;
 }
 
-footer {
-    background-color: #011627;
+/* Navbar Links (Links will be placed in the .navbar-links for smaller screens) */
+.navbar-links a {
     color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-/* posts */
-.posts-container{
-    width: 100%;
-    max-width: 40vw;
-    max-height: 100vh;
-    justify-self: center;
-}
-.posts{
-    padding-bottom: 150px;
-}
-.post {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.post h2 {
+    text-decoration: none;
+    font-weight: bold;
     font-size: 24px;
-    color: #FF9F1C;
+    display: block;
+    padding: 1rem;
 }
 
-.post-meta {
-    font-size: 14px;
-    color: #555;
+/* Additional Styles (Optional) */
+a {
+    text-decoration: none;
 }
 
-.post p {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.6;
-}
-.post img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 10px;
-}
+/* Add more of your custom styles as necessary */
