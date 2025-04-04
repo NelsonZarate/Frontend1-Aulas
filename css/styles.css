@@ -5,7 +5,9 @@ body {
     font-weight: 400;
     font-style: normal;
 }
-
+main{
+    padding-bottom: 150px;
+}
 /* Menu button - hidden by default */
 .menu-btn {
     display: none;
@@ -15,6 +17,10 @@ body {
     border: 3px solid rgb(255, 255, 255);
     border-radius: 50%;
     cursor: pointer;
+}
+.main {
+    align-items: center;
+    place-self:center;
 }
 
 /* Navbar Styles */
@@ -64,10 +70,6 @@ body {
     max-height: 100vh;
     margin: 0 auto;
     justify-self: center;
-}
-
-.posts {
-    padding-bottom: 150px;
 }
 
 .post {

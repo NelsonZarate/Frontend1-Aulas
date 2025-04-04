@@ -1,26 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById('loginForm');
     const usernameInput = document.getElementById('username');
+    const recentSearch = document.getElementById('recentSearch');
     const profileContainer = document.querySelector('.profile-data');
     const postsContainer = document.querySelector('.posts');
+
+    // Retrieve recent search from localStorage (if exists) and parse it
+    let recentSearchSaved = localStorage.getItem("recentSearch");
+    if (recentSearchSaved) {
+        recentSearchSaved = JSON.parse(recentSearchSaved);
+    } else {
+        recentSearchSaved = {};
+    }
+
+    // Retrieve username from localStorage and fetch associated profiles and posts
+    const usernameSaved = JSON.parse(localStorage.getItem("username"));
+    if (usernameSaved) {
+        console.log(usernameSaved)
+        fetchProfilesAndPosts(usernameSaved);
+    }
 
     // Function to fetch profiles and posts from the JSON files
     async function fetchProfilesAndPosts(username) {
         try {
-            // Fetch profiles and posts
             const responseProfile = await fetch('data/profile.json');
             const profiles = await responseProfile.json();
 
             const responsePosts = await fetch('data/posts.json');
             const posts = await responsePosts.json();
 
-            // Find the profile matching the username
             const profile = profiles.find(p => p.name.toLowerCase() === username.toLowerCase());
             if (profile) {
-                // Display the profile
                 displayProfiles(profile);
                 postsContainer.innerHTML = '';
-                // Filter and display posts related to the logged-in user
                 const filteredPosts = posts.filter(post => post.author === profile.name);
                 filteredPosts.forEach(post => {
                     displayPosts(post);
@@ -37,8 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Display the profile
     function displayProfiles(profile) {
-        // Clear any existing profile data
         profileContainer.innerHTML = '';
+
+        // Display recent searches
+        const recentSearchData = document.createElement('p');
+        recentSearchData.textContent = JSON.stringify(recentSearchSaved);  // Show recent search data
+        recentSearch.appendChild(recentSearchData);
 
         const profileCard = document.createElement('div');
         profileCard.classList.add('profile-card');
@@ -94,16 +110,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Event listener for form submission
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent page reload
-
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
         const username = usernameInput.value.trim();
-
+        console.log(username)
         if (username) {
-            fetchProfilesAndPosts(username);  // Fetch data for the logged-in user
+            let savedData;
+            
+            // If there's a recent search, merge it with the new username
+            if (recentSearchSaved && Object.keys(recentSearchSaved).length > 0) {
+                savedData = {
+                    username, 
+                    ...recentSearchSaved
+                };
+            } else {
+                savedData = { username };  // Just save the username if no recent search exists
+            }
+
+            // Save the combined data in localStorage
+            localStorage.setItem("recentSearch", JSON.stringify(savedData));
+            localStorage.setItem("username", JSON.stringify(username));
+
+            // Fetch profiles and posts for the given username
+            console.log(savedData,username);    
+            fetchProfilesAndPosts(username);
         } else {
             alert("Please enter a valid name.");
         }
     });
-
 });
