@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const profileContainer = document.querySelector('.profile-data');
     const postsContainer = document.querySelector('.posts');
 
-    // Retrieve recent search from localStorage (if exists) and parse it
     let recentSearchSaved = localStorage.getItem("recentSearch");
     if (recentSearchSaved) {
         recentSearchSaved = JSON.parse(recentSearchSaved);
+        displayRecentSearch(recentSearchSaved)
     } else {
         recentSearchSaved = {};
     }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Retrieve username from localStorage and fetch associated profiles and posts
     const usernameSaved = JSON.parse(localStorage.getItem("username"));
     if (usernameSaved) {
-        console.log(usernameSaved)
+        console.log("local storage username:",usernameSaved)
         fetchProfilesAndPosts(usernameSaved);
     }
 
@@ -47,14 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Display the profile
     function displayProfiles(profile) {
         profileContainer.innerHTML = '';
-
-        // Display recent searches
-        const recentSearchData = document.createElement('p');
-        recentSearchData.textContent = JSON.stringify(recentSearchSaved);  // Show recent search data
-        recentSearch.appendChild(recentSearchData);
 
         const profileCard = document.createElement('div');
         profileCard.classList.add('profile-card');
@@ -82,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
         profileContainer.appendChild(profileCard);
     }
 
-    // Display posts
     function displayPosts(post) {
         const postContainer = document.createElement('div');
         postContainer.classList.add('post');
@@ -109,31 +102,43 @@ document.addEventListener("DOMContentLoaded", function () {
         postsContainer.appendChild(postContainer);
     }
 
+    function displayRecentSearch(searchList) {
+        // Clear the previous content in the recentSearch container (if needed)
+        recentSearch.innerHTML = '';
+        console.log("recent search function:",searchList)
+        // Loop through each item in the searchList array
+            const recentSearchData = document.createElement('p'); // Create a <p> element for each search name
+            recentSearchData.textContent = searchList; // Set the text content of the <p> to the search name
+            recentSearch.appendChild(recentSearchData); // Append the <p> element to the 'recentSearch' cont
+    }
+    
+
     // Event listener for form submission
     loginForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const username = usernameInput.value.trim();
-        console.log(username)
+        let saveData = localStorage.getItem("recentSearch");
+        console.log("username:",username);
+        console.log("recent search saved data: ", saveData);
         if (username) {
-            let savedData;
+            let savedData = [];
             
             // If there's a recent search, merge it with the new username
-            if (recentSearchSaved && Object.keys(recentSearchSaved).length > 0) {
-                savedData = {
+            if (saveData && Object.keys(saveData).length > 0) {
+                savedData = [
                     username, 
-                    ...recentSearchSaved
-                };
+                    JSON.parse(saveData)
+                ];
             } else {
-                savedData = { username };  // Just save the username if no recent search exists
+                savedData = username;  // Just save the username if no recent search exists
             }
 
             // Save the combined data in localStorage
             localStorage.setItem("recentSearch", JSON.stringify(savedData));
             localStorage.setItem("username", JSON.stringify(username));
 
-            // Fetch profiles and posts for the given username
-            console.log(savedData,username);    
             fetchProfilesAndPosts(username);
+            displayRecentSearch(savedData)
         } else {
             alert("Please enter a valid name.");
         }
