@@ -20,11 +20,19 @@ const MyPets = [animal]
 
 document.addEventListener("DOMContentLoaded", function() {
     // Function to fetch posts from the JSON file
+    let posts = JSON.parse(localStorage.getItem("posts"));
+    if (!posts){
+        // Call the fetch function to load posts on page load
+        fetchPosts();
+    }else{
+        displayPosts(posts);
+    }
     async function fetchPosts() {
         try {
             const response = await fetch('data/posts.json');
             const posts = await response.json(); 
             // Now display the posts
+            localStorage.setItem("posts",JSON.stringify(posts))
             displayPosts(posts);
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -67,7 +75,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Call the fetch function to load posts on page load
-    fetchPosts();
 });
 

@@ -13,8 +13,8 @@ main{
     display: none;
     font-size: 30px;
     background-color: transparent;
-    color: orange;
-    border: 3px solid rgb(255, 255, 255);
+    color: #d19d2e;
+    border: 3px solid #ffffff;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -29,7 +29,7 @@ main{
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #FF9F1C;
+    background-color: #2b2623;
     color: white;
 }
 
@@ -40,7 +40,7 @@ main{
 }
 
 .logo-text {
-    color: #ffffff;
+    color: #d19d2e;
     font-size: 30px;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@ main{
 }
 
 .navbar-links a {
-    color: white;
+    color: #888386;
     text-decoration: none;
     font-weight: bold;
     font-size: 24px;
@@ -73,7 +73,7 @@ main{
 }
 
 .post {
-    background-color: white;
+    background-color: #554f4f;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
@@ -82,17 +82,17 @@ main{
 
 .post h2 {
     font-size: 24px;
-    color: #FF9F1C;
+    color: #d19d2e;
 }
 
 .post-meta {
     font-size: 14px;
-    color: #555;
+    color: #b9b6b7;
 }
 
 .post p {
     font-size: 16px;
-    color: #333;
+    color: #b9b6b7;
     line-height: 1.6;
 }
 
@@ -105,7 +105,7 @@ main{
 
 /* Footer */
 footer {
-    background-color: #011627;
+    background-color: #2b2623;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -126,7 +126,7 @@ footer {
         position: absolute;
         top: 50px;
         right: 20px;
-        background-color: #333;
+        background-color: #2b2623;
         width: 100%;
         flex-direction: column;
         text-align: center;
@@ -156,7 +156,7 @@ footer {
 .profile-container {
     max-width: 800px;
     margin: 0 auto;
-    background-color: #f5f5f5;
+    background-color: #554f4f;
     padding: 2rem;
     border-radius: 8px;
 }
@@ -181,16 +181,17 @@ footer {
 #user-name {
     font-size: 32px;
     font-weight: bold;
+    color: #d19d2e;
 }
 
 #user-bio {
     font-size: 18px;
-    color: #666;
+    color: #b9b6b7;
 }
 
 /* Navbar Links (Links will be placed in the .navbar-links for smaller screens) */
 .navbar-links a {
-    color: white;
+    color: #888386;
     text-decoration: none;
     font-weight: bold;
     font-size: 24px;
@@ -201,3 +202,4 @@ footer {
 a {
     text-decoration: none;
 }
+    
