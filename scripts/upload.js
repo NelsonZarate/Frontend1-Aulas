@@ -1,3 +1,5 @@
+import { getPosts, createPost } from "./api.js";
+
 document.addEventListener("DOMContentLoaded", function () {
     const uploadform = document.getElementById('form-upload');
     const titleInput = document.getElementById('titleInput');
@@ -5,23 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const uploadPostContainer = document.querySelector('.uploadPosts');
     const postsContainer = document.querySelector('.posts');
 
-    let posts = JSON.parse(localStorage.getItem("posts"));
-    if (!posts) {
-        fetchPosts();
-    } else {
+    const posts = getPosts();
+    if (posts) {
         displayPosts(posts);
-    }
-
-    async function fetchPosts() {
-        try {
-            const response = await fetch('data/posts.json');
-            const postsData = await response.json();
-            localStorage.setItem("posts", JSON.stringify(postsData));
-            posts = postsData;
-            displayPosts(posts);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
+    }else{
+        console.error("No posts founds.");
     }
 
     function displayPosts(postsToDisplay) {
@@ -59,29 +49,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     uploadform.addEventListener('submit', function (event) {
-        fetchPosts();
         event.preventDefault();
-
+        
         const title = titleInput.value.trim();
         const description = descriptionInput.value.trim();
-
+        
         if (title) {
-            const lastId = Math.max(...posts.map(p => p.id), 0); // fallback se estiver vazio
-            const newPost = {
-                id: lastId + 1,
-                nome: title,
-                createdAt: new Date().toLocaleDateString("pt-PT"),
-                descricao: description,
-                author: "Nelson",
-                body: "Body of post",
-                image_url: "posts/1.png"
-            };
+            const newPost =  {
+                "createdAt": "2025-04-08T10:24:08.322Z",
+                "Author": "Edith Langosh",
+                "Title": "Excepturi audacia tristis angustus conitor vereor cunabula.",
+                "Description": "https://loremflickr.com/348/2066?lock=8085492080177151",
+                "Image": "https://loremflickr.com/3024/2104?lock=4796131944609210",
+                "Body": "Tristis repudiandae coma tutamen terebro soluta culpa cena inventore. Supra aedificium cado fugiat. Conspergo assentator cur modi.",
+                "id": "1"
+              }
+        
+            createPost(newPost);
+            posts = getPosts();
+            displayPosts(posts);
 
-            posts.push(newPost);
-            localStorage.setItem("posts", JSON.stringify(posts));
-            displayPosts(posts); // atualiza a lista inteira com o novo post incluído
-
-            // limpa os campos do formulário
             titleInput.value = '';
             descriptionInput.value = '';
         } else {

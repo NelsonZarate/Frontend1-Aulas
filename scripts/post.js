@@ -1,79 +1,44 @@
+import { getPosts } from "./api.js";
 
-let animal = {
-    id:1,
-    name:"Puppy",
-    species:"Dog",
-    race:"Golden",
-    gender:"Male"
-}
+document.addEventListener("DOMContentLoaded", async function() {
+    
+    const posts = await getPosts(); // Await the asynchronous function
 
-let profile = {
-    id:1,
-    name : "Nelson",
-    gender :"Male",
-    createdAt : "02-04-2025",
-    descricao : "Descrição",
-    author : "Author",
-    body : "Body"
-}
-const MyPets = [animal]
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to fetch posts from the JSON file
-    let posts = JSON.parse(localStorage.getItem("posts"));
-    if (!posts){
-        // Call the fetch function to load posts on page load
-        fetchPosts();
-    }else{
-        displayPosts(posts);
-    }
-    async function fetchPosts() {
-        try {
-            const response = await fetch('data/posts.json');
-            const posts = await response.json(); 
-            // Now display the posts
-            localStorage.setItem("posts",JSON.stringify(posts))
-            displayPosts(posts);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
-    }
-
-    // Function to display the posts
+    displayPosts(posts);
     function displayPosts(posts) {
+        console.log(posts);
         const postsContainer = document.querySelector('.posts');
-
         posts.forEach(post => {
             const postContainer = document.createElement('div');
             postContainer.classList.add('post');
-            console.log(post);
+
             // Create and append post title
             const postTitle = document.createElement('h4');
-            postTitle.textContent = post.nome;
+            postTitle.textContent = post.Title || "Untitled"; // Use Title directly
             postContainer.appendChild(postTitle);
 
             // Create and append post description
             const postDescription = document.createElement('p');
-            postDescription.textContent = post.descricao;
+            postDescription.textContent = post.Description || "No description"; // Use Description directly
             postContainer.appendChild(postDescription);
 
             // Create and append post body
             const postBody = document.createElement('p');
-            postBody.textContent = post.body;
+            postBody.textContent = post.Body || "No content"; // Use Body directly
             postContainer.appendChild(postBody);
 
             // Create and append post image if it exists
-            if (post.image_url) {
+            if (post.Image) { // Use Image directly
                 const postImage = document.createElement('img');
-                postImage.src = post.image_url;
-                postImage.alt = "Post Image";
+                postImage.src = post.Image;
+                postImage.alt = post.Title || "Post image";
+                postImage.style.objectFit = "cover"; // Ensure the image fits nicely
+                postImage.classList.add('postImage'); // Add a CSS class
                 postContainer.appendChild(postImage);
             }
 
-            // Append the post container to the posts container
             postsContainer.appendChild(postContainer);
         });
     }
-
 });
 
