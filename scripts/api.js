@@ -5,8 +5,8 @@ export const getPosts = async function fetchPosts() {
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
-        const posts = await response.json(); 
-        localStorage.setItem("posts", posts);
+        const posts = await response.json();
+        
         console.log(posts)
         return posts;
     } catch (error) {

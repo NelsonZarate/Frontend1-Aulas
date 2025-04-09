@@ -1,5 +1,7 @@
+import { getPosts } from "./api.js";
+
 document.addEventListener("DOMContentLoaded", function () {
-    const loginForm = document.getElementById('loginForm');
+    const searchForm = document.getElementById('searchForm');
     const usernameInput = document.getElementById('username');
     const recentSearch = document.getElementById('recentSearch');
     const profileContainer = document.querySelector('.profile-data');
@@ -8,137 +10,109 @@ document.addEventListener("DOMContentLoaded", function () {
     let recentSearchSaved = localStorage.getItem("recentSearch");
     if (recentSearchSaved) {
         recentSearchSaved = JSON.parse(recentSearchSaved);
-        displayRecentSearch(recentSearchSaved)
+        displayRecentSearch(recentSearchSaved);
     } else {
-        recentSearchSaved = {};
+        recentSearchSaved = [];
     }
 
-    // Retrieve username from localStorage and fetch associated profiles and posts
+    // Retrieve username from localStorage and fetch associated posts
     const usernameSaved = JSON.parse(localStorage.getItem("username"));
     if (usernameSaved) {
-        console.log("local storage username:",usernameSaved)
-        fetchProfilesAndPosts(usernameSaved);
+        console.log("local storage username:", usernameSaved);
+        fetchPostsByAuthor(usernameSaved);
     }
 
-    // Function to fetch profiles and posts from the JSON files
-    async function fetchProfilesAndPosts(username) {
+    // Function to fetch posts and filter by author
+    async function fetchPostsByAuthor(author) {
         try {
-            const responseProfile = await fetch('data/profile.json');
-            const profiles = await responseProfile.json();
+            const posts = await getPosts(); // Use your existing getPosts function
+            const filteredPosts = posts.filter(post => post.Author && post.Author.toLowerCase() === author.toLowerCase());
+            console.log(filteredPosts)
 
-            const responsePosts = await fetch('data/posts.json');
-            const posts = await responsePosts.json();
-
-            const profile = profiles.find(p => p.name.toLowerCase() === username.toLowerCase());
-            if (profile) {
-                displayProfiles(profile);
-                postsContainer.innerHTML = '';
-                const filteredPosts = posts.filter(post => post.author === profile.name);
-                filteredPosts.forEach(post => {
-                    displayPosts(post);
-                });
+            if (filteredPosts.length > 0) {
+                displayAuthorProfile(author);
+                displayPosts(filteredPosts);
             } else {
-                console.error("Profile not found for:", username);
-                alert("Profile not found, please check the name and try again.");
+                profileContainer.innerHTML = `<p>No posts found for author "${author}".</p>`;
+                postsContainer.innerHTML = '';
             }
-
         } catch (error) {
-            console.error("Error fetching profiles or posts:", error);
+            console.error("Error fetching posts:", error);
         }
     }
 
-    function displayProfiles(profile) {
+    // Function to display the author's profile (simulated using the author name)
+    function displayAuthorProfile(author) {
         profileContainer.innerHTML = '';
 
         const profileCard = document.createElement('div');
         profileCard.classList.add('profile-card');
 
         const profileName = document.createElement('h2');
-        profileName.textContent = profile.name;
+        profileName.textContent = `Author: ${author}`;
         profileCard.appendChild(profileName);
-
-        const profileGender = document.createElement('p');
-        profileGender.textContent = `Gender: ${profile.gender}`;
-        profileCard.appendChild(profileGender);
-
-        const profileCreatedAt = document.createElement('p');
-        profileCreatedAt.textContent = `Joined on: ${profile.createdAt}`;
-        profileCard.appendChild(profileCreatedAt);
-
-        const profileDescription = document.createElement('p');
-        profileDescription.textContent = `Description: ${profile.descricao}`;
-        profileCard.appendChild(profileDescription);
-
-        const profileBody = document.createElement('p');
-        profileBody.textContent = `Details: ${profile.body}`;
-        profileCard.appendChild(profileBody);
 
         profileContainer.appendChild(profileCard);
     }
 
-    function displayPosts(post) {
-        const postContainer = document.createElement('div');
-        postContainer.classList.add('post');
+    // Function to display posts
+    function displayPosts(posts) {
+        postsContainer.innerHTML = ''; // Clear previous posts
+        posts.forEach(post => {
+            const postContainer = document.createElement('div');
+            postContainer.classList.add('post');
 
-        const postTitle = document.createElement('h4');
-        postTitle.textContent = post.nome;
-        postContainer.appendChild(postTitle);
+            // Create and append post title
+            const postTitle = document.createElement('h4');
+            postTitle.textContent = post.Title || "Untitled"; // Use Title directly
+            postContainer.appendChild(postTitle);
 
-        const postDescription = document.createElement('p');
-        postDescription.textContent = post.descricao;
-        postContainer.appendChild(postDescription);
+            // Create and append post description
+            const postDescription = document.createElement('p');
+            postDescription.textContent = post.Description || "No description"; // Use Description directly
+            postContainer.appendChild(postDescription);
 
-        const postBody = document.createElement('p');
-        postBody.textContent = post.body;
-        postContainer.appendChild(postBody);
+            // Create and append post body
+            const postBody = document.createElement('p');
+            postBody.textContent = post.Body || "No content"; // Use Body directly
+            postContainer.appendChild(postBody);
 
-        if (post.image_url) {
-            const postImage = document.createElement('img');
-            postImage.src = post.image_url;
-            postImage.alt = "Post Image";
-            postContainer.appendChild(postImage);
-        }
-
-        postsContainer.appendChild(postContainer);
-    }
-
-    function displayRecentSearch(searchList) {
-        // Clear the previous content in the recentSearch container (if needed)
-        recentSearch.innerHTML = '';
-        console.log("recent search function:",searchList)
-        // Loop through each item in the searchList array
-            const recentSearchData = document.createElement('p'); // Create a <p> element for each search name
-            recentSearchData.textContent = searchList; // Set the text content of the <p> to the search name
-            recentSearch.appendChild(recentSearchData); // Append the <p> element to the 'recentSearch' cont
-    }
-    
-
-    // Event listener for form submission
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const username = usernameInput.value.trim();
-        let saveData = localStorage.getItem("recentSearch");
-        console.log("username:",username);
-        console.log("recent search saved data: ", saveData);
-        if (username) {
-            let savedData = [];
-            
-            // If there's a recent search, merge it with the new username
-            if (saveData && Object.keys(saveData).length > 0) {
-                savedData = [
-                    username, 
-                    JSON.parse(saveData)
-                ];
-            } else {
-                savedData = username;  // Just save the username if no recent search exists
+            // Create and append post image if it exists
+            if (post.Image) { // Use Image directly
+                const postImage = document.createElement('img');
+                postImage.src = post.Image;
+                postImage.alt = post.Title || "Post image";
+                postImage.style.objectFit = "cover"; // Ensure the image fits nicely
+                postImage.classList.add('postImage'); // Add a CSS class
+                postContainer.appendChild(postImage);
             }
 
-            // Save the combined data in localStorage
-            localStorage.setItem("recentSearch", JSON.stringify(savedData));
+            postsContainer.appendChild(postContainer);
+        });
+    }
+
+    // Function to display recent searches
+    function displayRecentSearch(searchList) {
+        recentSearch.innerHTML = ''; // Clear previous content
+        const recentSearchData = document.createElement('p');
+        recentSearchData.textContent = `Recent Searches: ${searchList.join(', ')}`;
+        recentSearch.appendChild(recentSearchData);
+    }
+
+    // Event listener for form submission
+    searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const username = usernameInput.value.trim();
+        if (username) {
+            // Save recent searches in localStorage
+            if (!recentSearchSaved.includes(username)) {
+                recentSearchSaved.push(username);
+                localStorage.setItem("recentSearch", JSON.stringify(recentSearchSaved));
+            }
             localStorage.setItem("username", JSON.stringify(username));
 
-            fetchProfilesAndPosts(username);
-            displayRecentSearch(savedData)
+            fetchPostsByAuthor(username);
+            displayRecentSearch(recentSearchSaved);
         } else {
             alert("Please enter a valid name.");
         }

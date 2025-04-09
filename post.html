@@ -19,19 +19,23 @@
     <main>
         <div class="main">
             <h1>Lets upload some posts </h1>
-    
             <div class="upload-form">
                 <h2> Post </h2>
                 <form id="form-upload">
-                    
                     <label for="title">Title:</label>
-                    <input type="text" id="title" placeholder="Enter post title" required />
+                    <input type="text" id="title" placeholder="Enter post title" required /><br>
+                    <label for="image">Image URL:</label>
+                    <input type="text" id="image" placeholder="Enter image URL" required /><br>
+                    <label for="author">Author: </label>
+                    <input type="text" id="author" placeholder="Enter author name" required /><br>
+                    <label for="body">Body:</label>
+                    <textarea id="body" placeholder="Enter post body" required></textarea><br>
                     <label for="description">Description:</label>
-                    <input type="text" id="description" placeholder="enter post description" required />
+                    <input type="text" id="description" placeholder="enter post description" required /><br>
                     <button type="submit">Submit</button>
                 </form>
             </div>
-                <div class="uploadposts">
+                <div class="posts">
                 </div>
             </div>
 
@@ -40,10 +44,11 @@
 
     <script src="scripts/menu.js" defer></script>
     <script src="scripts/scripts.js" defer></script>
-    <script src="scripts/profile.js"></script>
+    <script type="module" src="scripts/profile.js"></script>
+    <script type="module" src="scripts/upload.js"></script>
 
     <footer>
-        <p>© 2024 PetConnect | Made with ❤️ for pets</p>
+        <p>© 2025 PetConnect | Made with ❤️ for pets</p>
     </footer>
 </body>
 

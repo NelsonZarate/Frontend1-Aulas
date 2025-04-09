@@ -21,6 +21,14 @@ main{
 .main {
     align-items: center;
     place-self:center;
+    max-width: 40vw;
+    
+}
+
+.main-welcome{
+    align-items: center;
+    place-self:center;
+    
 }
 
 /* Navbar Styles */
@@ -243,7 +251,9 @@ a {
     cursor: pointer; /* Indicate it's clickable */
 }
 
-/* Right Animation */
 .right-animation {
     grid-area: right;
+    width: 150px;
+    height: 150px;
+    opacity: 0;
 }
