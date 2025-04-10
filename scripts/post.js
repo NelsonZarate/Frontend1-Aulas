@@ -1,71 +1,116 @@
-import { getPosts,deletePost } from "./api.js";
+import { getPost, getPosts, updatePost, deletePost } from "./api.js";
+import { openModal, closeModal } from "./modal.js";
+let postsContainer = document.querySelector('.posts'); 
 
-document.addEventListener("DOMContentLoaded", async function() {
-    
+export async function fetchAndDisplayPosts() {
+    postsContainer.innerHTML = '';
     const posts = await getPosts();
     displayPosts(posts);
-    function displayPosts(posts) {
-        console.log(posts);
-        const postsContainer = document.querySelector('.posts');
-        posts.forEach(post => {
-            const postContainer = document.createElement('div');
-            postContainer.classList.add('post');
-            
-            const editButton = document.createElement('button');
-            editButton.textContent = "Edit";
-            editButton.classList.add('edit-button');
-            editButton.addEventListener('click', function() {
-                // Redirect to the edit page with the post ID
-                window.location.href = `edit.html?id=${post.id}`;
-            });
-            postContainer.appendChild(editButton);
+}
+export function displayPosts(posts) {
+    postsContainer.innerHTML = ''; // Clear previous posts
+    posts.forEach(post => {
+        const postContainer = document.createElement('div');
+        postContainer.classList.add('post');
+        
+        // Create and append edit button
+        const editButton = document.createElement('button');
+        editButton.textContent = "Edit";
+        editButton.classList.add('edit-button');
+        editButton.addEventListener('click', () => openEditModal(post.id));
+        postContainer.appendChild(editButton);
 
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = "Delete";
-            deleteButton.classList.add('delete-button');
-            deleteButton.addEventListener('click', function() {
-                // Implement delete functionality here
-                const confirmation = confirm("Are you sure you want to delete this post?");
-                if (confirmation) {
-                    // Call your delete function here
-                    deletePost(post.id);
-                    console.log(`Post with ID ${post.id} deleted.`);
+        // Create and append delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', async () => {
+            if (confirm("Are you sure you want to delete this post?")) {
+                await deletePost(post.id);
+                alert("Post deleted successfully!");
+                fetchAndDisplayPosts();
+            }
+        });
+        postContainer.appendChild(deleteButton);
+        // Create and append post title
+        const postTitle = document.createElement('h4');
+        postTitle.textContent = post.Title || "Untitled";
+        postContainer.appendChild(postTitle);
+
+        // Create and append post body
+        const postBody = document.createElement('p');
+        postBody.textContent = post.Body || "No content available";
+        postContainer.appendChild(postBody);
+
+        // Create and append post image if it exists
+        if (post.Image) {
+            const postImage = document.createElement('img');
+            postImage.src = post.Image;
+            postImage.alt = post.Title || "Post image";
+            postImage.style.objectFit = "cover";
+            postImage.classList.add('post-image');
+            postContainer.appendChild(postImage);
+        }
+        // Create and append post description
+        const postDescription = document.createElement('p');
+        postDescription.textContent = post.Description || "No description available";
+        postContainer.appendChild(postDescription);
+        // Create and append post author
+        const postAuthor = document.createElement('p');
+        postAuthor.textContent = `Author: ${post.Author || "Unknown"}`; 
+        postContainer.appendChild(postAuthor);
+        // Create and append post date
+        const postDate = document.createElement('p');
+        postDate.textContent = `Date: ${post.createdAt || "Unknown"}`;
+        postContainer.appendChild(postDate);
+
+        postsContainer.appendChild(postContainer);
+        async function openEditModal(postId) {
+            const post = await getPost(postId);
+    
+            const form = document.createElement('form');
+            form.innerHTML = `
+                <h2>Edit Post</h2>
+                <label for="title">Title:</label>
+                <input type="text" id="title" value="${post.Title}" required /><br>
+                <label for="description">Description:</label>
+                <input type="text" id="description" value="${post.Description}" required /><br>
+                <label for="author">Author:</label>
+                <input type="text" id="author" value="${post.Author}" required /><br>
+                <label for="body">Body:</label>
+                <textarea id="body" required>${post.Body}</textarea><br>
+                <label for="image">Image URL:</label>
+                <input type="text" id="image" value="${post.Image}" required /><br>
+                <button type="submit">Update</button>
+            `;
+    
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+    
+                const updatedPost = {
+                    Title: form.querySelector("#title").value.trim(),
+                    Description: form.querySelector("#description").value.trim(),
+                    Author: form.querySelector("#author").value.trim(),
+                    Body: form.querySelector("#body").value.trim(),
+                    Image: form.querySelector("#image").value.trim(),
+                };
+    
+                if (updatedPost.Title) {
+                    await updatePost(postId, updatedPost);
+                    alert("Post updated successfully!");
+                    closeModal();
+                    fetchAndDisplayPosts(); // Refresh posts
+                } else {
+                    alert("Please enter a valid title.");
                 }
             });
-            postContainer.appendChild(deleteButton);
+    
+            openModal(form);
+        }
+    });
+}
 
-            // Create and append post title
-            const postTitle = document.createElement('h4');
-            postTitle.textContent = post.Title || "Untitled"; // Use Title directly
-            postContainer.appendChild(postTitle);
-
-            // Create and append post description
-            const postDescription = document.createElement('p');
-            postDescription.textContent = post.Description || "No description"; // Use Description directly
-            postContainer.appendChild(postDescription);
-
-            // Create and append post body
-            const postBody = document.createElement('p');
-            postBody.textContent = post.Body || "No content"; // Use Body directly
-            postContainer.appendChild(postBody);
-
-            // Create and append post image if it exists
-            if (post.Image) { // Use Image directly
-                const postImage = document.createElement('img');
-                postImage.src = post.Image;
-                postImage.alt = post.Title || "Post image";
-                postImage.style.objectFit = "cover"; // Ensure the image fits nicely
-                postImage.classList.add('postImage'); // Add a CSS class
-                postContainer.appendChild(postImage);
-            }
-            const postAuthor = document.createElement('p');
-            postAuthor.textContent = post.Author || "Anonymous"; // Use Author directly
-            postContainer.appendChild(postAuthor);
-            const postCreatedAt = document.createElement('p');
-            postCreatedAt.textContent = post.createdAt || "Unknown date"; // Use createdAt directly
-            postContainer.appendChild(postCreatedAt);
-            postsContainer.appendChild(postContainer);
-        });
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    const postsContainer = document.querySelector('.posts');
+    fetchAndDisplayPosts();
 });
-
