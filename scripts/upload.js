@@ -14,13 +14,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         };
         return currentDate.toLocaleString('pt', options);
     }
-
+    
     const uploadform = document.getElementById('form-upload');
     const titleInput = document.getElementById('title');
     const descriptionInput = document.getElementById('description');
     const AuthorInput = document.getElementById('author');
     const bodyInput = document.getElementById('body');
-    const imageInput = document.getElementById('image');
+    const imageInput = document.getElementById('imageUrl');
     const uploadPostContainer = document.querySelector('.uploadPosts');
     const postsContainer = document.querySelector('.post');
     const createPostButton = document.getElementById("create-post-button");

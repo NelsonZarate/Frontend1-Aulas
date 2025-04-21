@@ -9,21 +9,29 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.text())
         .then(data => {
             menuContainer.innerHTML = data; // Inject the menu HTML into the container
-        }).then(() => {
-            // Check if the logo container element exists
+
+            const homeButton = document.getElementById('home-button');
+            const searchButton = document.getElementById('search-button');
+            const uploadButton = document.getElementById('upload-button');
+            console.log("Menu buttons loaded!");
+            const currentPath = window.location.pathname.split('/').pop(); // Extract the filename
+            // Check if the current page is "home.html"
+            if (currentPath === 'home.html') {
+                homeButton.classList.add('active'); // Add the 'active' class
+            }
+            if(currentPath === 'search.html') {
+                searchButton.classList.add('active'); // Add the 'active' class
+            }
+            if(currentPath === 'upload.html') {
+                uploadButton.classList.add('active'); // Add the 'active' class
+            }
             const logo = document.querySelector('#logo-container');
 
             if (logo) {
-                // Attach click event listener to the logo container
                 logo.addEventListener('click', () => {
                     const paw = document.querySelector('.paw-icon');
-
-                    // Check if the paw element exists
                     if (paw) {
-                        // Apply the transform effect (scale and rotate)
                         paw.style.transform = 'scale(1.1) rotate(15deg)';
-
-                        // Reset the transform after 300ms
                         setTimeout(() => {
                             paw.style.transform = 'scale(1)';
                         }, 300);
@@ -36,12 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 console.error("Logo container not found.");
             }
-        }
-
-        )
+        })
         .catch(error => {
             console.error('Error loading the menu:', error);
         });
-
-
 });

@@ -81,9 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (post.Image) { // Use Image directly
                 const postImage = document.createElement('img');
                 postImage.src = post.Image;
-                postImage.alt = post.Title || "Post image";
+                postImage.alt = post.Title || "Post-image";
                 postImage.style.objectFit = "cover"; // Ensure the image fits nicely
-                postImage.classList.add('postImage'); // Add a CSS class
+                postImage.classList.add('post-image'); // Add a CSS class
                 postContainer.appendChild(postImage);
             }
 

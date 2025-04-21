@@ -25,7 +25,8 @@
                     <label for="title">Title:</label>
                     <input type="text" id="title" placeholder="Enter post title" required /><br>
                     <label for="image">Image URL:</label>
-                    <input type="text" id="image" placeholder="Enter image URL" required /><br>
+                    <input type="text" id="imageUrl" placeholder="Enter image URL" required />
+                    <button id="RandomDogButton">Random Dog</button> 
                     <label for="author">Author: </label>
                     <input type="text" id="author" placeholder="Enter author name" required /><br>
                     <label for="body">Body:</label>
@@ -36,8 +37,10 @@
                 </form>
             </div>
             <div class="breed-dog-div"> 
+                <h2> Breed Dog </h2>
+                <p>Insert the breed of the dog to get a random image of that breed.</p>
                 <form class="breed-dog-form" id="breed-dog-form">
-                    <label for="breed-dog-label" id="breedInput">Insert the breed of the dog:</label>
+                    <label for="breed-dog-label" id="breedInput">Breed:</label>
                     <input type="text" id="breed-dog-input" placeholder="Poodle" required />
                     <div id="dog-result" class="dog-result"> </div>
                     <button id="random-dog-button" type="submit">Get Dog Image</button>

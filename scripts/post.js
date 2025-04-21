@@ -1,6 +1,6 @@
 import { getPost, getPosts, updatePost, deletePost } from "./api.js";
-import { openModal, closeModal } from "./modal.js";
-let postsContainer = document.querySelector('.posts'); 
+import { openModal, closeModal, openEditModal } from "./modal.js";
+let postsContainer = document.querySelector('.posts');
 
 export async function fetchAndDisplayPosts() {
     postsContainer.innerHTML = '';
@@ -12,19 +12,43 @@ export function displayPosts(posts) {
     posts.forEach(post => {
         const postContainer = document.createElement('div');
         postContainer.classList.add('post');
-        
+
+        // Create and append post image
+        if (post.Image) {
+            const postImage = document.createElement('img');
+            postImage.src = post.Image;
+            postImage.alt = post.Title || "Post image";
+            postImage.classList.add('post-image');
+            postContainer.appendChild(postImage);
+        }
+
+        // Create and append post title
+        const postTitle = document.createElement('h4');
+        postTitle.textContent = post.Title || "Untitled";
+        postContainer.appendChild(postTitle);
+
+        // Create and append post author
+        const postAuthor = document.createElement('p');
+        postAuthor.textContent = `Author: ${post.Author || "Unknown"}`;
+        postAuthor.classList.add('post-author');
+        postContainer.appendChild(postAuthor);
+
         // Create and append edit button
         const editButton = document.createElement('button');
         editButton.textContent = "Edit";
         editButton.classList.add('edit-button');
-        editButton.addEventListener('click', () => openEditModal(post.id));
+        editButton.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            console.log("Opening edit modal for post ID:", post.id); // Debugging
+            openEditModal(post.id); 
+        });
         postContainer.appendChild(editButton);
-
         // Create and append delete button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = "Delete";
         deleteButton.classList.add('delete-button');
-        deleteButton.addEventListener('click', async () => {
+        deleteButton.addEventListener('click', async (e) => {
+            e.stopPropagation();
             if (confirm("Are you sure you want to delete this post?")) {
                 await deletePost(post.id);
                 alert("Post deleted successfully!");
@@ -32,82 +56,83 @@ export function displayPosts(posts) {
             }
         });
         postContainer.appendChild(deleteButton);
-        // Create and append post title
-        const postTitle = document.createElement('h4');
-        postTitle.textContent = post.Title || "Untitled";
-        postContainer.appendChild(postTitle);
 
-        // Create and append post body
-        const postBody = document.createElement('p');
-        postBody.textContent = post.Body || "No content available";
-        postContainer.appendChild(postBody);
+        // Create and append Full Screen button
+        const fullScreenButton = document.createElement('button');
+        fullScreenButton.textContent = "Full Screen";
+        fullScreenButton.classList.add('full-screen-button');
 
-        // Create and append post image if it exists
-        if (post.Image) {
-            const postImage = document.createElement('img');
-            postImage.src = post.Image;
-            postImage.alt = post.Title || "Post image";
-            postImage.style.objectFit = "cover";
-            postImage.classList.add('post-image');
-            postContainer.appendChild(postImage);
-        }
-        // Create and append post description
-        const postDescription = document.createElement('p');
-        postDescription.textContent = post.Description || "No description available";
-        postContainer.appendChild(postDescription);
-        // Create and append post author
-        const postAuthor = document.createElement('p');
-        postAuthor.textContent = `Author: ${post.Author || "Unknown"}`; 
-        postContainer.appendChild(postAuthor);
-        // Create and append post date
-        const postDate = document.createElement('p');
-        postDate.textContent = `Date: ${post.createdAt || "Unknown"}`;
-        postContainer.appendChild(postDate);
+        // Add event listener for Full Screen functionality
+        fullScreenButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeModal();
+            const postContent = document.createElement('div');
+            postContent.classList.add('full-screen-content');
+            
+            if (post.Image) {
+                const postImage = document.createElement('img');
+                postImage.src = post.Image;
+                postImage.alt = post.Title || "Post image";
+                postImage.style.maxWidth = "100%";
+                postImage.classList.add('post-image'); 
+                postContent.appendChild(postImage);
+            }
 
-        postsContainer.appendChild(postContainer);
-        async function openEditModal(postId) {
-            const post = await getPost(postId);
-    
-            const form = document.createElement('form');
-            form.innerHTML = `
-                <h2>Edit Post</h2>
-                <label for="title">Title:</label>
-                <input type="text" id="title" value="${post.Title}" required /><br>
-                <label for="description">Description:</label>
-                <input type="text" id="description" value="${post.Description}" required /><br>
-                <label for="author">Author:</label>
-                <input type="text" id="author" value="${post.Author}" required /><br>
-                <label for="body">Body:</label>
-                <textarea id="body" required>${post.Body}</textarea><br>
-                <label for="image">Image URL:</label>
-                <input type="text" id="image" value="${post.Image}" required /><br>
-                <button type="submit">Update</button>
-            `;
-    
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-    
-                const updatedPost = {
-                    Title: form.querySelector("#title").value.trim(),
-                    Description: form.querySelector("#description").value.trim(),
-                    Author: form.querySelector("#author").value.trim(),
-                    Body: form.querySelector("#body").value.trim(),
-                    Image: form.querySelector("#image").value.trim(),
-                };
-    
-                if (updatedPost.Title) {
-                    await updatePost(postId, updatedPost);
-                    alert("Post updated successfully!");
-                    closeModal();
-                    fetchAndDisplayPosts(); // Refresh posts
-                } else {
-                    alert("Please enter a valid title.");
+            // Append the full-screen content to the body and request full screen
+            document.body.appendChild(postContent);
+            postContent.requestFullscreen().catch((err) => {
+                console.error("Error attempting to enable full-screen mode:", err.message);
+            });
+
+            // Exit full screen and remove the content when the user exits full screen
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    postContent.remove();
                 }
             });
-    
-            openModal(form);
-        }
+        });
+
+        postContainer.appendChild(fullScreenButton);
+
+        // Add click event to show full details
+        postContainer.addEventListener('click', () => {
+            showPostDetails(post);
+        });
+
+        postsContainer.appendChild(postContainer);
     });
+}
+
+// Function to show full post details
+function showPostDetails(post) {
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('post-details');
+
+    const postTitle = document.createElement('h2');
+    postTitle.textContent = post.Title || "Untitled";
+    modalContent.appendChild(postTitle);
+
+    const postAuthor = document.createElement('p');
+    postAuthor.textContent = `Author: ${post.Author || "Unknown"}`;
+    modalContent.appendChild(postAuthor);
+
+    const postBody = document.createElement('p');
+    postBody.textContent = post.Body || "No content available";
+    modalContent.appendChild(postBody);
+
+    if (post.Image) {
+        const postImage = document.createElement('img');
+        postImage.src = post.Image;
+        postImage.alt = post.Title || "Post image";
+        postImage.style.maxWidth = "100%";
+        modalContent.appendChild(postImage);
+    }
+
+    const postDescription = document.createElement('p');
+    postDescription.textContent = post.Description || "No description available";
+    modalContent.appendChild(postDescription);
+
+    openModal(modalContent); // Use the modal to display full details
 }
 
 document.addEventListener("DOMContentLoaded", function () {

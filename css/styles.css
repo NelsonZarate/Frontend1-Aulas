@@ -1,28 +1,36 @@
-/* Body Styles */
+/* General Body Styles */
 body {
     margin: 0;
     font-family: "Lobster", sans-serif;
     font-weight: 400;
     font-style: normal;
+    background-color: #f9f9f9; /* Light background for better contrast */
+    color: #333; /* Darker text for readability */
 }
-main{
+
+main {
     padding-bottom: 150px;
 }
+
 /* Menu button - hidden by default */
 .menu-btn {
     display: none;
     font-size: 30px;
     background-color: transparent;
     color: #d19d2e;
-    border: 3px solid #ffffff;
+    border: 2px solid #d19d2e;
     border-radius: 50%;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
+
+.menu-btn:hover {
+    transform: scale(1.1);
+}
+
 .main {
     align-items: center;
     place-self:center;
-    max-width: 40vw;
-    
 }
 
 .main-welcome{
@@ -39,6 +47,10 @@ main{
     padding: 1rem 2rem;
     background-color: #2b2623;
     color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo-container {
@@ -61,57 +73,102 @@ main{
 }
 
 .navbar-links a {
-    color: #888386;
+    color: #d1d1d1;
     text-decoration: none;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
+    color: #d19d2e;
+    text-decoration: underline;
+}
+.navbar-links a.active {
+    color: #d19d2e; 
+    font-weight: bold;
     text-decoration: underline;
 }
 
 /* Posts Container */
 .posts-container {
-    width: 100%;
-    max-width: 40vw;
-    margin-top: 80px;
     justify-self: center;
 }
 
+.posts {
+    display: grid;
+    grid-template-columns: repeat( 4 , 1fr );
+    grid-column-gap: 20px;
+}
+
 .post {
-    background-color: #554f4f;
+    background-color: #fff;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    width: 350px;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .post h2 {
     font-size: 24px;
     color: #d19d2e;
+    margin-bottom: 10px;
 }
 
 .post-meta {
     font-size: 14px;
-    color: #b9b6b7;
+    color: #888;
+    margin-bottom: 15px;
 }
 
 .post p {
     font-size: 16px;
-    color: #b9b6b7;
+    color: #555;
     line-height: 1.6;
 }
 
+.post-image {
+    width: 100%; 
+    height: 200px;
+    object-fit: cover; 
+    border-radius: 8px;
+    display: block;
+    margin: 10px auto; 
+}
+
+
 /* Footer */
 footer {
-    background-color: #2b2623;
+    background: linear-gradient(90deg, #2b2623, #554f4f);
     color: white;
     text-align: center;
     padding: 1rem;
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #d19d2e;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive Design for Mobile */
@@ -154,11 +211,24 @@ footer {
 
 /* Profile Styles */
 .profile-container {
-    max-width: 800px;
     margin: 0 auto;
     background-color: #554f4f;
     padding: 2rem;
     border-radius: 8px;
+}
+.profile-data {
+    display: grid;
+    grid-template-columns: repeat( 4 , 1fr );
+    grid-column-gap: 20px;
+    max-width: 80vw;
+}
+.profile-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 50vw;
 }
 
 .profile-header {
@@ -168,8 +238,8 @@ footer {
 }
 
 .profile-pic {
-    width: 120px;
-    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -191,7 +261,7 @@ footer {
 
 /* Navbar Links (Links will be placed in the .navbar-links for smaller screens) */
 .navbar-links a {
-    color: #888386;
+    color: #d1d1d1;
     text-decoration: none;
     font-weight: bold;
     font-size: 24px;
@@ -203,14 +273,6 @@ a {
     text-decoration: none;
 }
 
-.post-image {
-    width: 100%; 
-    height: 600px;
-    object-fit: cover; 
-    border-radius: 8px;
-    display: block;
-    margin: 10px auto; 
-}
 
 /* Welcome Animation Container */
 .welcome-animation {
@@ -295,4 +357,136 @@ a {
     font-weight: bold;
     color: #333;
     cursor: pointer;
+}
+
+/* Buttons */
+button {
+    font-size: 16px;
+    background-color: #d19d2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #b8861b;
+    transform: scale(1.05);
+}
+
+/* Form Container */
+form {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Labels */
+form label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Form Inputs */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #d19d2e;
+    box-shadow: 0 0 5px rgba(209, 157, 46, 0.5);
+    outline: none;
+}
+
+/* Textarea */
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Form Buttons */
+form button {
+    font-size: 16px;
+    background-color: #d19d2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #b8861b;
+    transform: scale(1.05);
+}
+
+/* Form Error Messages */
+form .error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/* Form Success Messages */
+form .success {
+    color: #2ecc71;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Responsive Design for Forms */
+@media screen and (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .posts-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .post {
+        padding: 15px;
+    }
 }
