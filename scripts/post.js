@@ -65,7 +65,6 @@ export function displayPosts(posts) {
         // Add event listener for Full Screen functionality
         fullScreenButton.addEventListener('click', (e) => {
             e.stopPropagation();
-            closeModal();
             const postContent = document.createElement('div');
             postContent.classList.add('full-screen-content');
             
@@ -73,8 +72,7 @@ export function displayPosts(posts) {
                 const postImage = document.createElement('img');
                 postImage.src = post.Image;
                 postImage.alt = post.Title || "Post image";
-                postImage.style.maxWidth = "100%";
-                postImage.classList.add('post-image'); 
+                postImage.classList.add('fullscreen-image'); 
                 postContent.appendChild(postImage);
             }
 

@@ -1,8 +1,14 @@
-// menu.js
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    loadMenu();
+
+});
+
+function loadMenu() {
     // Select the container where the menu will be injected
     const menuContainer = document.querySelector('.menu-placeholder');
+
 
     // Fetch the menu HTML
     fetch('menu.html')
@@ -19,10 +25,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentPath === 'home.html') {
                 homeButton.classList.add('active'); // Add the 'active' class
             }
-            if(currentPath === 'search.html') {
+            if (currentPath === 'search.html') {
                 searchButton.classList.add('active'); // Add the 'active' class
             }
-            if(currentPath === 'upload.html') {
+            if (currentPath === 'upload.html') {
                 uploadButton.classList.add('active'); // Add the 'active' class
             }
             const logo = document.querySelector('#logo-container');
@@ -44,8 +50,21 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 console.error("Logo container not found.");
             }
+
+            const menuBtn = document.getElementById("menu-btn");
+            console.log("menuBtn is:", menuBtn);
+
+            const navbarLinks = document.querySelector(".navbar-links");
+
+            if (menuBtn) {
+                menuBtn.addEventListener("click", function () {
+                    navbarLinks.classList.toggle("active");
+                });
+            } else {
+                console.error("menuBtn is null! Check your HTML for id='menubtn'");
+            }
         })
         .catch(error => {
             console.error('Error loading the menu:', error);
         });
-});
+}
