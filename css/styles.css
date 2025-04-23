@@ -605,6 +605,7 @@ form .success {
         
     }
 }
+
 @media (max-width: 430px) {
     .welcome-animation{
         transform:scale(0.5);
