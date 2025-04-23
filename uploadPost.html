@@ -15,12 +15,11 @@
 </head>
 
 <body>
-    <div class="menu-placeholder"></div>
+<my-custom-menu></my-custom-menu>
     <main>
         <div class="main">
-            <h1>Lets upload some posts </h1>
+            <h1 class="post-tittle">Lets upload some posts </h1>
             <div class="upload-form">
-                <h2> Post </h2>
                 <form id="form-upload">
                     <label for="title">Title:</label>
                     <input type="text" id="title" placeholder="Enter post title" required /><br>
@@ -50,23 +49,22 @@
         </div>
 
         </div>
+        
     </main>
-
+    
     <div id="modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
+    <my-custom-footer> </my-custom-footer>
 
-    <script src="scripts/menu.js" defer></script>
-    <script src="scripts/scripts.js" defer></script>
-    <script type="module" src="scripts/upload.js"></script>
-    <script type="module" src="scripts/dogApi.js"></script>
-
-    <footer>
-        <p>© 2025 PetConnect | Made with ❤️ for pets</p>
-    </footer>
+    
 </body>
+<script src="scripts/menu.js" defer></script>
+<script src="scripts/scripts.js" defer></script>
+<script type="module" src="scripts/upload.js"></script>
+<script type="module" src="scripts/dogApi.js"></script>
 
 </html>

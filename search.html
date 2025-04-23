@@ -15,17 +15,19 @@
 </head>
 
 <body>
-    <div class="menu-placeholder"></div>
+<my-custom-menu></my-custom-menu>
     <main>
         <div class="main">
-            <h1>Lets search some profiles</h1>
-            <div class="profile-form">
-                <h2>Search: </h2>
-                <form id="searchForm">
-                    <label for="username">Enter the Name of the profile:</label>
-                    <input type="text" id="username" placeholder="Enter your name" required />
-                    <button type="submit">Submit</button>
-                </form>
+            <div class="profile-div">
+                <h1>Lets search some profiles</h1>
+                <div class="profile-form">
+                    <h2>Search: </h2>
+                    <form id="searchForm">
+                        <label for="username">Enter the Name of the profile:</label>
+                        <input type="text" id="username" placeholder="Enter your name" required />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
             </div>
             <div class="profile-container">
                 <div class="profile-data">
@@ -39,15 +41,13 @@
                 </h2>
             </div>
         </div>
+        <my-custom-footer> </my-custom-footer>
+
     </main>
 
     <script src="scripts/menu.js" defer></script>
     <script src="scripts/scripts.js" defer></script>
     <script type="module" src="scripts/profile.js"></script>
-
-    <footer>
-        <p>© 2025 PetConnect | Made with ❤️ for pets</p>
-    </footer>
 </body>
 
 </html>
