@@ -5,11 +5,13 @@
     --link-color: #007bff;
     --navbar-bg: #2b2623;
     --navbar-text-color: white;
-    --banner-bg : to top, rgba(255, 255, 255, 0.223), rgba(0, 0, 0, 0.371);
+    --banner-bg: #ffffff85;
     --post-bg-color: White;
+    --search-bg-color: White;
     --button-bg: #d19d2e;
     --button-bg: #d19d2e;
     --button-text-color: white;
+    --profile-bg-color: #554f4f;
     --footer-bg: linear-gradient(90deg, #2b2623, #554f4f);
 }
 
@@ -20,18 +22,26 @@ body.dark-mode {
     --link-color: #80aaff; /* Lighter links */
     --navbar-bg: #1a1a1a; /* Dark navbar */
     --navbar-text-color: #d1d1d1; /* Light text for navbar */
-    --banner-bg : to top, rgba(0, 0, 0, 0.418), rgba(0, 0, 0, 0.371);
+    --banner-bg : #131212;
     --post-bg-color: rgb(29, 28, 28);
+    --search-bg-color: rgb(29, 28, 28);
     --button-bg: #555; /* Darker buttons */
     --button-bg: white;
     --button-text-color: #fff; /* Light text for buttons */
-    --footer-bg: linear-gradient(90deg, #333, #444); /* Dark footer */
+    --profile-bg-color: rgb(29, 28, 28);
+    --footer-bg: #1a1a1a; /* Dark footer */
 }
 
+.navbar{
+    font-family: "Lobster", sans-serif;
+}
+h1{
+    font-family: "Lobster", sans-serif;
+}
 body {
     margin: 0;
-    font-family: "Lobster", sans-serif;
-    font-weight: 400;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
     font-style: normal;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -49,6 +59,7 @@ main {
 }
 
 .main-welcome{
+    font-family: "Lobster", sans-serif;
     align-items: center;
     place-self:center;
     
@@ -140,10 +151,10 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--banner-bg)
+    /* background: var(--banner-bg)
     linear-gradient(), 
-    url('banner.jpg');
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), #ffffff85), url('banner.jpg') no-repeat center center / cover;
+    url('banner.jpg'); */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5),  var(--banner-bg)), url('banner.jpg') no-repeat center center / cover;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -161,10 +172,18 @@ main {
     text-align: center;
 }
 
-.profile-div{
-    justify-items: center;
+.search-form-div {
+    background-color: var(--search-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: 50vw;
 }
 
+#searchForm{
+    background-color: var(--search-bg-color);
+    
+}
 /* Posts Container */
 .posts-container {
     padding-top: 3rem;
@@ -211,13 +230,14 @@ main {
     line-height: 1.6;
 }
 
-.post-image {
-    width: 100%; 
+.post-image{
+    width: 400px; 
     height: 200px;
     object-fit: cover; 
     border-radius: 8px;
     display: block;
     margin: 10px auto; 
+    float: left;
 }
 .fullscreen-image{
     max-width: 100vw;
@@ -234,7 +254,7 @@ main {
 
 /* Footer */
 footer {
-    background: linear-gradient(90deg, #2b2623, #554f4f);
+    background: var(--footer-bg);
     color: white;
     text-align: center;
     padding: 1rem;
@@ -263,23 +283,17 @@ footer a:hover {
 /* Profile Styles */
 .profile-container {
     margin: 0 auto;
-    background-color: #554f4f;
     padding: 2rem;
     border-radius: 8px;
+    justify-items: center;
+    max-width: 80vw;
 }
 .profile-data {
-    display: grid;
-    grid-template-columns: repeat( 4 , 1fr );
     grid-column-gap: 20px;
     max-width: 80vw;
 }
-.profile-form {
-    background-color: var(--bg-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    max-width: 50vw;
+#recentSearch{
+    justify-items: center;
 }
 
 .profile-header {
@@ -555,7 +569,10 @@ form .success {
 
     }
 }
-
+.splide__slide, .post{
+    margin-right: 20px;
+    border-radius: 0;
+}
 /* Tablet Styles - Show 2 grid template */
 @media screen and (min-width: 769px) and (max-width: 1440px) {
     .posts {
@@ -652,4 +669,9 @@ form .success {
         bottom: -127.7px;
         right: 165.9px;
     }
+}
+
+.div-carrosel{
+    justify-self: center;
+    max-width: 70vw;
 }

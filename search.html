@@ -12,39 +12,45 @@
         href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
 </head>
 
 <body>
-<my-custom-menu></my-custom-menu>
+    <my-custom-menu></my-custom-menu>
     <main>
         <div class="main">
-            <div class="profile-div">
+            <div class="search-div">
                 <h1>Lets search some profiles</h1>
-                <div class="profile-form">
+                <form id="searchForm">
                     <h2>Search: </h2>
-                    <form id="searchForm">
-                        <label for="username">Enter the Name of the profile:</label>
-                        <input type="text" id="username" placeholder="Enter your name" required />
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
+                    <input type="text" id="username" placeholder="Name of the profile" required />
+                    <button type="submit">Submit</button>
+                </form>
             </div>
-            <div class="profile-container">
-                <div class="profile-data">
-                </div>
-                <div class="posts">
-                </div>
+        </div>
+        <div class="profile-container">
+            <div class="profile-data">
             </div>
-            <div id="recentSearch">
-                <h2>
-                    Recent Search:
-                </h2>
-            </div>
+        </div>
+        <div class="div-carrosel">
+            <section id="carrossel" class="splide" aria-labelledby="carousel-heading">
+                <div class="splide__track">
+                  <ul class="splide__list" id="posts-container">
+    
+                  </ul>
+                </div>
+              </section>
+        </div>
+
+        <div id="recentSearch">
+            <h2>
+                Recent Search:
+            </h2>
         </div>
         <my-custom-footer> </my-custom-footer>
 
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="scripts/menu.js" defer></script>
     <script src="scripts/scripts.js" defer></script>
     <script type="module" src="scripts/profile.js"></script>

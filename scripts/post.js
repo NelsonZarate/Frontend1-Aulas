@@ -49,12 +49,25 @@ export function displayPosts(posts) {
         deleteButton.classList.add('delete-button');
         deleteButton.addEventListener('click', async (e) => {
             e.stopPropagation();
-            if (confirm("Are you sure you want to delete this post?")) {
-                await deletePost(post.id);
-                alert("Post deleted successfully!");
-                fetchAndDisplayPosts();
+            
+            const result = await Swal.fire({
+                title: "Do you want to delete this post?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                denyButtonText: `Don't Delete`,
+                icon:'warning'
+            });
+        
+            if (result.isConfirmed) {
+                await deletePost(post.id); // 🔥 Await deletion
+                Swal.fire("Deleted!", "", "success");
+                fetchAndDisplayPosts(); // Refresh after deletion
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
             }
         });
+
         postContainer.appendChild(deleteButton);
 
         // Create and append Full Screen button

@@ -66,7 +66,10 @@ export async function openEditModal(postId) {
 
         if (updatedPost.Title) {
             await updatePost(postId, updatedPost);
-            alert("Post updated successfully!");
+            Swal.fire({
+                title: "Post Updated successfully",
+                icon: "success"
+              });
             closeModal(); // Close the modal after updating
             fetchAndDisplayPosts(); // Refresh the posts
         } else {
