@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <a href="home.html" id="home-button">Home</a>
                         <a href="search.html" id="search-button">Search</a>
                         <a href="uploadPost.html" id="upload-button">Upload</a>
-                        <button id="theme-toggle">Switch to Dark Mode</button>
+                        <button id="theme-toggle">🌙</button>
                     </div>
                 </nav>`;
             
@@ -82,7 +82,7 @@ function loadMenu() {
     // Check if dark mode is set in localStorage
     if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark-mode");
-        themeToggleButton.textContent = "Switch to Light Mode";
+        themeToggleButton.textContent = "🌞";
     }
 
     // Toggle theme on button click
@@ -92,12 +92,12 @@ function loadMenu() {
         // Save theme preference to localStorage
         if (document.body.classList.contains("dark-mode")) {
             localStorage.setItem("theme", "dark");
-            themeToggleButton.textContent = "Switch to Light Mode";
+            themeToggleButton.textContent = "🌞";
             console.log("dark mode on");
         } else {
             localStorage.removeItem("theme");
             console.log("light mode on");
-            themeToggleButton.textContent = "Switch to Dark Mode";
+            themeToggleButton.textContent = "🌙" ;
         }
     });
 }

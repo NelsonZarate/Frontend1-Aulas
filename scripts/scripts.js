@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Define custom menu component
     class CustomFooter extends HTMLElement {

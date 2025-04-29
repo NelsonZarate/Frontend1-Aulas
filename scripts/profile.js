@@ -100,6 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
                   autoplay: true,
                   interval: 3000,
                   speed: 2000,
+                  breakpoints: {
+                    700: {
+                      perPage: 1, // this kicks in when screen is <= 700px
+                    }
+                  },
                 }).mount();
               }
         });
