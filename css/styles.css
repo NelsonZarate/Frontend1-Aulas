@@ -16,6 +16,7 @@
     --theme-button-bg: #2b2623;
     --theme-button-bg-hover: #b8861b;
     --form-label-color: #333;
+    --form-label-bg: #d4d0c8;
 }
 
 /* Dark Mode */
@@ -26,7 +27,7 @@ body.dark-mode {
     --navbar-bg: #1a1a1a; /* Dark navbar */
     --navbar-text-color: #d1d1d1; /* Light text for navbar */
     --banner-bg : #131212;
-    --post-bg-color: rgb(29, 28, 28);
+    --post-bg-color: rgb(43, 40, 40);
     --search-bg-color: rgb(29, 28, 28);
     --button-bg: #555; /* Darker buttons */
     --button-bg: white;
@@ -35,7 +36,9 @@ body.dark-mode {
     --footer-bg: #1a1a1a; /* Dark footer */
     --theme-button-bg: #1a1a1a;
     --theme-button-bg-hover: #100f0f;
-    --form-label-color: #white;
+    --form-label-color: white;
+    --form-label-bg: rgb(49, 48, 48);
+    --form-bg-color: rgb(49, 48, 48);
 }
 
 .navbar{
@@ -207,7 +210,7 @@ main {
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
     width: 350px;
     justify-self: center;
@@ -464,7 +467,7 @@ form {
     max-width: 30vw;
     margin: 20px auto;
     padding: 20px;
-    background-color:var(--bg-color);
+    background-color:var(--form-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -491,7 +494,7 @@ form select {
     border-radius: 5px;
     font-size: 16px;
     color: var(--form-label-color);
-    background-color: #f9f9f9;
+    background-color: var(--form-label-bg);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
