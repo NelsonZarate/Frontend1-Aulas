@@ -1,72 +1,21 @@
-# 🐾 PetConnect - Social Media para Animais
+# Titulo do website: Projeto Exercicios Aulas
 
-Um projeto frontend inspirado no Instagram, mas focado em pets, com interações gamificadas e potencial para monetização.
+## Descrição do website: Demonstração das matérias dadas nas aulas
 
-# URL https://nelsonzarate.github.io/Frontend1-Aulas/
----
+### Requisitos
+- Converter objecto javascript para json e vice versa - scripts/api.js
+- Guardar e ler informação da local storage - scripts/menu.js
+- Inserir informação através de formulário e mostrar informação após submeter posts.js, upload.js, home.html ,uploadPost.html
+- Fazer fetch de uma api e mostrar resultados no ecrã scripts/api.js , posts.js, home.html
+- Através de um input, inserir um termo de procura e apresentar resultados de uma API pública  
+- Implementar pelo menos 2 apis nativas de javascript, por exemplo geolocation e clipboard  
+- Desenhar 2 formas básicas no canvas api 
+- Implementar um component de web components 
+- Utilizar uma biblioteca externa, por exemplo, caroussel 
+- Gerar report do Lighthouse e colocar screenshot no repositório do projeto. Ter pelo menos 90 de score em 2 das 4 métricas 
+- Pelo menos 1 exemplo de cada CRUD operation
 
-## 🎯 **Objetivo**
-Criar uma rede social minimalista onde usuários possam:
-- Postar fotos de seus animais.
-- Curtir e comentar em publicações.
-- Perfis personalizáveis com "nível de fofura".
+### Bonus
+- Implementação dos requisitos ao contexto do projeto em si
 
----
-
-## 🛠️ **Tecnologias Sugeridas**
-- **Frontend**: React.js + Tailwind CSS (ou Vue.js).
-- **Backend**: Firebase (Firestore + Storage).
-- **Deploy**: Vercel/Netlify.
-
----
-
-## 📋 **MVP (2-4 semanas)**
-### Funcionalidades Básicas
-1. **Autenticação**:
-   - Login com e-mail/senha (Firebase Auth).
-   - Perfil básico (foto, nome do pet, bio).
-2. **Posts**:
-   - Upload de imagens (drag-and-drop).
-   - Legenda e data de publicação.
-3. **Interações**:
-   - Likes (com animação personalizada).
-   - Comentários simples.
-4. **Feed**:
-   - Scroll infinito ordenado por data.
-
-### Diferenciais Criativos
-- **Filtros CSS/JS**: Efeitos como "bigode de gato" ou "orelhas de cachorro".
-- **Reações customizadas**: Ícones de patinhas, ossos, etc.
-- **Pet Score**: Nível de fofura baseado em likes (ex.: ⭐⭐⭐⭐⭐).
-
----
-
-## 🚀 **Roadmap (Futuras Features)**
-1. **Stories**: Vídeos curtos com stickers animados.
-2. **Mapa de Pets**: Encontre pets próximos (Google Maps API).
-3. **Desafios**: "Pet do Mês" com votação.
-4. **Loja Virtual**: Stickers digitais ou acessórios reais.
-
----
-
-## 💰 **Monetização**
-- **Freemium**:  
-  - Badges premium (ex.: "Influencer Pet").  
-  - Pacotes de stickers/emoji.  
-- **Parcerias**:  
-  - Anúncios de marcas de pet.  
-  - Links afiliados (Amazon Pet).  
-
----
-
-## 🎨 **UI/UX**
-- **Paleta de Cores**:  
-  - Primárias: `#FF9F1C` (laranja), `#2EC4B6` (azul), `#FFFFFF` (branco).  
-- **Microinterações**:  
-  - Efeito de "latido" ao passar o mouse em botões.  
-  - Dark Mode (toggle).  
-- **Responsividade**: Mobile-first.  
-
----
-
-## 📂 **Estrutura de Pastas (Exemplo)**
+- Apresentar projeto no portfolio desenvolvido em Web Pages
