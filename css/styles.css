@@ -381,14 +381,14 @@ a {
     height: 200px;
     position: absolute;
     bottom: 283.69px;
-    right: 378.6px;
+    right: 600.6px;
 }
 
 /* Left Cat Animation */
 .left-animation {
     position: absolute;
     bottom: 263.6px;
-    right: 1166.9px;
+    right: 1416.9px;
 }
 
 .right-animation {
@@ -397,7 +397,7 @@ a {
     height: 150px;
     opacity: 0;
     bottom: 267px;
-    right: 158px;
+    right: 450px;
 }
 
 /* Welcome Text */
