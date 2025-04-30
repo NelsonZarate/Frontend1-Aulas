@@ -13,10 +13,7 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon.ico">
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -25,41 +22,32 @@
         <div class="main-welcome">
             <div class="welcome-animation">
                 <!-- Orange Cat Animation (Above the Welcome Text) -->
-                <dotlottie-player 
-                    src="https://lottie.host/b78314a9-7f31-49b6-9683-64441c33aa45/cLiu1Acs8y.lottie" 
-                    background="transparent" 
-                    speed="1" 
-                    style="width: 200px; height: 200px;" 
-                    loop 
-                    autoplay
-                    class="above-title-animation">
-                </dotlottie-player>
-            
-                <!-- Left Cat Animation -->
-                <dotlottie-player 
-                    src="https://lottie.host/291fc37d-cc0c-448b-8ea9-9d4078b3ca90/8FPhtsrxet.lottie" 
-                    background="transparent" 
-                    speed="1" 
-                    style="width: 150px; height: 150px;" 
-                    loop 
-                    autoplay
-                    class="left-animation">
-                </dotlottie-player>
-            
+                <div class="TopCat">
+
+                    <dotlottie-player src="https://lottie.host/b78314a9-7f31-49b6-9683-64441c33aa45/cLiu1Acs8y.lottie"
+                        background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay
+                        class="above-title-animation">
+                    </dotlottie-player>
+                </div>
+                <div class="LeftCat">
+
+                    <!-- Left Cat Animation -->
+                    <dotlottie-player src="https://lottie.host/291fc37d-cc0c-448b-8ea9-9d4078b3ca90/8FPhtsrxet.lottie"
+                        background="transparent" speed="1" style="width: 150px; height: 150px;" loop autoplay
+                        class="left-animation">
+                    </dotlottie-player>
+                </div>
                 <!-- Welcome Text -->
                 <div class="animate__animated welcome-text" id="welcome-title">Welcome to PetConnect</div>
-            
-                <!-- Right Animation -->
-                <dotlottie-player 
-                    id="right-animation"
-                    src="https://lottie.host/5840ff33-e208-4427-ac09-b40e2d8e455e/8TzlWAHtXr.lottie" 
-                    background="transparent" 
-                    speed="1" 
-                    style="width: 150px; height: 150px;" 
-                    loop 
-                    autoplay
-                    class="right-animation">
-                </dotlottie-player>
+                <div class="rightCat">
+
+                    <!-- Right Animation -->
+                    <dotlottie-player id="right-animation"
+                        src="https://lottie.host/5840ff33-e208-4427-ac09-b40e2d8e455e/8TzlWAHtXr.lottie"
+                        background="transparent" speed="1" style="width: 150px; height: 150px;" loop autoplay
+                        class="right-animation">
+                    </dotlottie-player>
+                </div>
             </div>
         </div>
     </main>

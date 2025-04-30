@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const posts = await getPosts(); // Use your existing getPosts function
             const filteredPosts = posts.filter(post => post.Author && post.Author.toLowerCase() === author.toLowerCase());
-            console.log(filteredPosts)
 
             if (filteredPosts.length > 0) {
                 displayAuthorProfile(author);
