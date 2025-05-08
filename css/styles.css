@@ -161,9 +161,8 @@ main {
 .banner {
     position: relative;
     width: 100vw;
-    height: 50vh;
-    overflow: hidden;
-    /* Ensures the pseudo-element doesn't overflow */
+    height: 100vh; 
+    overflow: hidden; /* Ensures the pseudo-element doesn't overflow */
 }
 
 .banner::before {
@@ -180,14 +179,15 @@ main {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 1;
+    filter: blur(0px);
     z-index: -1;
 }
 
 
 .banner-text {
     position: relative;
-    color: #ffffff;
+    color: #ffae00;;
+    padding-top: 7rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     font-size: xx-large;
     z-index: 1;
